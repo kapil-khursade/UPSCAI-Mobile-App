@@ -64,8 +64,7 @@ export default StyleSheet.create({
         color: '#FFFFFF'
     },
     versionContainer: {
-        position: 'absolute',
-        top: '85%',
+        marginTop: "45%",
         width: '90%',
         marginHorizontal: '5%'
     },

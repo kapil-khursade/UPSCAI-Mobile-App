@@ -84,7 +84,7 @@ const [hidePassword, setHidePassword] = useState(true)
         <TouchableOpacity style={LoginScreenStyleSheet.newAccountButton}>
             <Text style={LoginScreenStyleSheet.newAccountButtonText}>Create New Account</Text>
         </TouchableOpacity>
-        <Text style={LoginScreenStyleSheet.versionText}>v 0.0.1</Text>
+        <Text style={LoginScreenStyleSheet.versionText}>{process.env.EXPO_PUBLIC_APP_VERSION}</Text>
       </View>
       )
   }

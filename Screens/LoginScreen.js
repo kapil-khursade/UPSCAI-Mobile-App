@@ -1,13 +1,55 @@
-import { View, Text, Image, TextInput, TouchableOpacity} from 'react-native'
+import { View, Text, Image, TextInput, ActivityIndicator, TouchableOpacity} from 'react-native'
 import React, {useState} from 'react'
 import LoginScreenStyleSheet from '../StyleSheets/LoginScreenStyleSheet'
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from "@expo/vector-icons";
+import Login from '../Helpers/login';
+import { CommonActions } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsLogin } from '../Helpers/Redux/isLoginSlice';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation, route }) => {
 const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
-const [hidePassword, setHidePassword] = useState(true)
+const [hidePassword, setHidePassword] = useState(true);
+const [waitForLogin, setWaitForLogin] = useState(false);
+
+const dispatch = useDispatch();
+
+const handleSetIsLogin = (value) => {
+  dispatch(setIsLogin(value));
+}
+
+const handleLogin = async() => {
+    if(username.trim()==''){
+      alert("Enter Username");
+      return;
+    }
+    if(password.trim()==''){
+      alert("Enter Password");
+      return;
+    }
+    setWaitForLogin(true);
+    const loginResponse = await Login(username, password);
+    if (loginResponse.token) {
+      await AsyncStorage.setItem(process.env.EXPO_PUBLIC_APP_AUTH_TOKEN_KEY, loginResponse.token);
+      handleSetIsLogin(true);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: "MyTabs",
+            },
+          ],
+        })
+      );
+    }else{
+      alert(loginResponse.error);
+    }
+    setWaitForLogin(false);
+}
 
   const LogoComponant = () => {
     return (
@@ -68,8 +110,11 @@ const [hidePassword, setHidePassword] = useState(true)
   const ButtonComponent = () => {
     return (
         <View style={LoginScreenStyleSheet.loginButtonContainer}>
-        <TouchableOpacity style={LoginScreenStyleSheet.loginButton}>
-            <Text style={LoginScreenStyleSheet.buttonText}>Log in</Text>
+        <TouchableOpacity style={LoginScreenStyleSheet.loginButton}
+         onPress={() => handleLogin()}
+         disabled={waitForLogin}>
+          {waitForLogin? <ActivityIndicator color="white" size={24} /> : 
+          <Text style={LoginScreenStyleSheet.buttonText}>Log in</Text>}
         </TouchableOpacity>
         <TouchableOpacity style={LoginScreenStyleSheet.forgotPasswordButton}>
             <Text style={LoginScreenStyleSheet.buttonText}>Forgotten Password?</Text>

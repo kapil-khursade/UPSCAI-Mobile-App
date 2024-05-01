@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
+import { TouchableOpacity, Image} from 'react-native'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux';
 import { setIsLogin } from './Helpers/Redux/isLoginSlice';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,26 @@ const App = () => {
     dispatch(setIsLogin(value));
   }
 
+  const LogoTitle = () => {
+    return (<Image
+      style={{width: 100, height: 50}}
+      source={require("./assets/upscailogolong.png")}/>)
+          
+  }
+
+  const LogoutBtn = () => {
+    return (
+    <TouchableOpacity 
+       onPress={async () => {
+         await AsyncStorage.removeItem(process.env.EXPO_PUBLIC_APP_AUTH_TOKEN_KEY); 
+         handleSetIsLogin(false)
+         }}>
+        <MaterialCommunityIcons 
+        name="logout" size={24} 
+        color="#FFFFFF" />
+    </TouchableOpacity>)
+  }
+
   useEffect(()=>{
     isLoginCheck();
   }, [])
@@ -45,6 +67,13 @@ const App = () => {
           <Stack.Screen
             name="MyTabs"
             component={MyTabs}
+            options={{
+              headerTitle: (props) => <LogoTitle />,
+              headerStyle: {
+                backgroundColor: "#01212E",
+              },
+              headerRight: () => <LogoutBtn />
+            }}
           />
         </> :
         <>

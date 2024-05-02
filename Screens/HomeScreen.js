@@ -1,27 +1,20 @@
-import { View, Text, Image, Animated } from 'react-native'
+import { View, Text, Image, Animated, FlatList, TouchableOpacity } from 'react-native'
 import React, { useRef, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreenStyleSheet from '../StyleSheets/HomeScreenStyleSheet';
-import { useSelector, useDispatch } from 'react-redux';
-import { setWaitForLoading } from "../Helpers/Redux/waitForLoadingSlice";
 
 const HomeScreen = () => {
   const [user, setUser] = useState({});
+  const [userData, setUserData] = useState([{lable: "Token Balanced", data: "12,435"}, {lable: "Consumed Token", data: "2,155"}, {lable: "Questions", data: 3},{lable: "Answer", data: 4},])
   const fadeAnim = useRef(new Animated.Value(1)).current;
-  const waitForLoading = useSelector((state) => state.waitForLoading.waitForLoading)
-  const dispatch = useDispatch();
-
-  const handleAnimationComplete = () => {
-    // dispatch(setWaitForLoading(false));
-  };
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 1000, // Adjust the duration as needed
       useNativeDriver: true,
-    }).start(handleAnimationComplete());
-  }, [fadeAnim, handleAnimationComplete()]);
+    }).start();
+  }, [fadeAnim]);
 
 
   const getUserStored = async() => {
@@ -35,20 +28,42 @@ const HomeScreen = () => {
 
   const UserProfileContainer = () => {
     return (
-      <Animated.View style={HomeScreenStyleSheet.userProfileContainer}>
+      <View style={HomeScreenStyleSheet.userProfileContainer}>
         <Image
           style={HomeScreenStyleSheet.userImage}
           source={{ uri: user.profilePic }}
         />
         <Text style={HomeScreenStyleSheet.emailText}>{user.email}</Text>
-      </Animated.View>
+      </View>
     );
   };
 
+  const UserProfileData = () => {
+    const renderItem = ({ item }) => (
+      <TouchableOpacity style={HomeScreenStyleSheet.userProfileCard}>
+        <Text style={HomeScreenStyleSheet.dataText}>{item.data}</Text>
+        <Text style={HomeScreenStyleSheet.lableText}>{item.lable}</Text>
+      </TouchableOpacity>
+    );
+  
+    return (
+      <View style={HomeScreenStyleSheet.userProfileDataContainer}>
+        <FlatList
+          data={userData}
+          renderItem={renderItem}
+          numColumns={2} // Number of columns in the grid
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+    );
+  };
+  
+
   return (
-    <View style={HomeScreenStyleSheet.container}>
+    <Animated.View style={HomeScreenStyleSheet.container}>
       <UserProfileContainer/>
-    </View>
+      <UserProfileData />
+    </Animated.View>
   )
 }
 

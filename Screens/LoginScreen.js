@@ -35,6 +35,7 @@ const handleLogin = async() => {
     const loginResponse = await Login(username, password);
     if (loginResponse.token) {
       await AsyncStorage.setItem(process.env.EXPO_PUBLIC_APP_AUTH_TOKEN_KEY, loginResponse.token);
+      await AsyncStorage.setItem('user', JSON.stringify(loginResponse.user));
       handleSetIsLogin(true);
       navigation.dispatch(
         CommonActions.reset({

@@ -5,7 +5,7 @@ const Login  = async(email, password) => {
         email: email.trim(),
         password: password.trim()
       };
-    
+      
     try {
         // Make the fetch request
         const response = await fetch(url, {
@@ -15,11 +15,8 @@ const Login  = async(email, password) => {
           },
           body: JSON.stringify(payload)
         });
-
         const data = await response.json();
-    
         return data;
-        
       } catch (error) {
         return {
             error: `Login Failed: ${error}`

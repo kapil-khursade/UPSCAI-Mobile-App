@@ -2,13 +2,33 @@ import { View, Text, Image, Animated, FlatList, TouchableOpacity } from 'react-n
 import React, { useRef, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeScreenStyleSheet from '../StyleSheets/HomeScreenStyleSheet';
+import fetchUserProfileData from '../Helpers/fetchUserProfileData';
+import { useNavigation } from '@react-navigation/native';
+import CustomBadge from '../Helpers/CustomBadge';
 
 const HomeScreen = () => {
   const [user, setUser] = useState({});
-  const [userData, setUserData] = useState([{lable: "Token Balanced", data: "12,435"}, {lable: "Consumed Token", data: "2,155"}, {lable: "Questions", data: 3},{lable: "Answer", data: 4},])
+  const [userData, setUserData] = useState([]);
+  const [warnings, setWarnings] = useState([]);
   const fadeAnim = useRef(new Animated.Value(1)).current;
+  const navigation = useNavigation();
 
   useEffect(() => {
+    navigation.setOptions({
+      tabBarBadge: warnings.length > 0? <CustomBadge/> : null,
+      tabBarBadgeStyle: {
+        backgroundColor: 'transparent'
+      }
+    });
+    return () => {
+      navigation.setOptions({
+        tabBarBadge: null
+      });
+    };
+  }, [navigation, warnings]); 
+
+  useEffect(() => {
+    fetchUserProfileDataRquest();
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 1000, // Adjust the duration as needed
@@ -16,6 +36,18 @@ const HomeScreen = () => {
     }).start();
   }, [fadeAnim]);
 
+
+  const fetchUserProfileDataRquest = async () => {
+    const auth_token = await AsyncStorage.getItem(process.env.EXPO_PUBLIC_APP_AUTH_TOKEN_KEY);
+    const response = await fetchUserProfileData(auth_token);
+
+    if(response.user_data){
+       setUserData(response?.user_data);
+       setWarnings(response?.user_warnings)
+    }else{
+      alert(response.error)
+    }
+  }
 
   const getUserStored = async() => {
     const userStored = await AsyncStorage.getItem('user');
@@ -57,11 +89,30 @@ const HomeScreen = () => {
       </View>
     );
   };
+
+  const UserWarningsComponent = () => {
+    const renderItem = ({ item }) => (
+      <TouchableOpacity style={{...HomeScreenStyleSheet.warningCard, ...{backgroundColor: item.levle}}}>
+        <Text style={HomeScreenStyleSheet.warningsText}>{item.text}</Text>
+      </TouchableOpacity>
+    );
+  
+    return (
+      <View style={HomeScreenStyleSheet.userWarningContainer}>
+        <FlatList
+          data={warnings}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+    );
+  }
   
 
   return (
     <Animated.View style={HomeScreenStyleSheet.container}>
       <UserProfileContainer/>
+      {warnings.length > 0? <UserWarningsComponent/> : null}
       <UserProfileData />
     </Animated.View>
   )

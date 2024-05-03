@@ -1,13 +1,13 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-
 import HomeScreen from './HomeScreen';
 import Questions from './Questions';
 
 const Tab = createBottomTabNavigator();
 
 const MyTabs = () => {
+
   return (
     <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -21,8 +21,17 @@ const MyTabs = () => {
               return <AntDesign name={iconName} size={size} color={color} />
             }
           },
-          tabBarActiveTintColor: '#01212E',
+          tabBarActiveTintColor: '#FFFFFF',
+          tabBarInactiveTintColor: "grey",
           tabBarShowLabel: false,
+          tabBarStyle: {
+            height: 50,
+            paddingHorizontal: 2,
+            paddingTop: 0,
+            backgroundColor: '#000000',
+            borderTopColor: '#FFFFFF',
+            borderTopWidth: 0.2,
+        },
         })}
     >
       <Tab.Screen 
@@ -34,7 +43,12 @@ const MyTabs = () => {
       <Tab.Screen 
          name="Questions" 
          component={Questions} 
-         options={{headerShown: false}}/>
+         options={{
+          headerStyle: {
+            backgroundColor: '#000000',
+          },
+          headerTintColor: '#FFFFFF'
+         }}/>
     </Tab.Navigator>
   )
 }

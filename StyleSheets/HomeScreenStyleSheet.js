@@ -58,5 +58,23 @@ export default StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         fontSize: 10
+    },
+    userWarningContainer: {
+        width: '100%',
+        height: 'auto',
+        marginBottom: 10
+    },
+    warningCard: {
+        width: '100%',
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 2,
+        paddingHorizontal: "2%",
+        marginBottom: 5
+    },
+    warningsText: {
+        color: '#FFFFFF',
+        fontSize: 10,
+        lineHeight: 30
     }
 })

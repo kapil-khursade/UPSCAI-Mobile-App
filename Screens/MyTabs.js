@@ -1,8 +1,9 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Ionicons, AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 import HomeScreen from './HomeScreen';
 import Questions from './Questions';
+import NewQuestion from './NewQuestion';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,9 @@ const MyTabs = () => {
             } else if (route.name === 'Questions') {
               iconName = focused ? 'questioncircle' : 'questioncircleo';
               return <AntDesign name={iconName} size={size} color={color} />
+            } else if (route.name === 'NewQuestion') {
+              iconName = focused ? 'pencil-circle' : 'pencil-circle-outline';
+              return <MaterialCommunityIcons name={iconName} size={30} color={color} />
             }
           },
           tabBarActiveTintColor: '#FFFFFF',
@@ -49,6 +53,17 @@ const MyTabs = () => {
           },
           headerTintColor: '#FFFFFF'
          }}/>
+
+      <Tab.Screen 
+          name="NewQuestion" 
+          component={NewQuestion} 
+          options={{
+            headerTitle: 'New Question',
+            headerStyle: {
+              backgroundColor: '#000000',
+            },
+            headerTintColor: '#FFFFFF'
+          }}/>  
     </Tab.Navigator>
   )
 }

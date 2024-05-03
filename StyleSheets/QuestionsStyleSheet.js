@@ -6,7 +6,6 @@ export default StyleSheet.create({
         width: '100%',
         height: '100%',
         paddingHorizontal: '5%',
-        paddingTop: '5%',
     }, 
     questionContainer: {
         width: '100%',
@@ -21,7 +20,8 @@ export default StyleSheet.create({
         marginBottom: 10
     },
     questionText: {
-        fontWeight: '900'
+        fontWeight: '900',
+        textAlign: 'justify'
     },
     questionInfoCard: {
         width: '100%',
@@ -65,7 +65,8 @@ export default StyleSheet.create({
         borderColor: 'grey',
         padding: 10,
         borderRadius: 10,
-        marginTop: 5
+        marginTop: 5,
+        textAlign: 'justify'
     },
     chargedTokenText: {
         width: '30%',

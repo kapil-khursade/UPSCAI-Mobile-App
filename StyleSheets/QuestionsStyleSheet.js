@@ -20,6 +20,9 @@ export default StyleSheet.create({
         padding: 10,
         marginBottom: 10
     },
+    questionText: {
+        fontWeight: '900'
+    },
     questionInfoCard: {
         width: '100%',
         height: 'auto',
@@ -32,9 +35,9 @@ export default StyleSheet.create({
         paddingTop: 5
     },
     paperText: {
-        width: '30%',
+        width: '40%',
         height: 15,
-        fontSize: 10,
+        fontSize: 7,
         textAlign: 'center',
         backgroundColor: '#0d6efd',
         lineHeight: 15,
@@ -42,19 +45,39 @@ export default StyleSheet.create({
         borderRadius: 10
     },
     keywordsContainer: {
-        width: '30%',
+        width: '50%',
     },
     keywordText: {
         width: '100%',
         marginLeft: 5,
         paddingHorizontal: 5,
         height: 15,
-        fontSize: 10,
+        fontSize: 7,
         textAlign: 'center',
         backgroundColor: '#6c757d',
         lineHeight: 15,
         color: '#FFFFFF',
         borderRadius: 10,
-        marginBottom: 2
+        marginBottom: 2,
+    },
+    answerText: {
+        borderWidth: 0.2,
+        borderColor: 'grey',
+        padding: 10,
+        borderRadius: 10,
+        marginTop: 5
+    },
+    chargedTokenText: {
+        width: '30%',
+        marginLeft: 5,
+        paddingHorizontal: 5,
+        height: 15,
+        fontSize: 7,
+        textAlign: 'center',
+        backgroundColor: '#6c757d',
+        lineHeight: 15,
+        color: '#FFFFFF',
+        borderRadius: 10,
+        marginTop: 2
     }
 })

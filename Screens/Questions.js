@@ -22,9 +22,13 @@ const Questions = ({navigation}) => {
     }
   }
 
+  const handleOnPressQueston = (quesObj) => {
+
+  }
+
   const QuestionsListCompnent = () => {
     const renderItem = ({ item }) => (
-      <TouchableOpacity style={QuestionsStyleSheet.questionCard}>
+      <View style={QuestionsStyleSheet.questionCard}>
         <Text style={QuestionsStyleSheet.questionText}>{item.question}</Text>
         <View style={QuestionsStyleSheet.questionInfoCard}>
           <Text style={QuestionsStyleSheet.paperText}>{item.paper}</Text>
@@ -38,7 +42,17 @@ const Questions = ({navigation}) => {
             }
           </View>
         </View>
-      </TouchableOpacity>
+        {
+          item.answers.map((ans, item) => {
+            return (
+              <View key={item} style={QuestionsStyleSheet.answerText}>
+                <Text>{ans.answer}</Text>
+                <Text style={QuestionsStyleSheet.chargedTokenText}>Tokens Chanrged: {ans.chargedToken}</Text>
+              </View>
+            )
+          })
+        }
+      </View>
     );
 
     return (

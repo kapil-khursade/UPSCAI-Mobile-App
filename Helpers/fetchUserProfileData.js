@@ -5,7 +5,7 @@ const fetchUserProfileData = async(auth_token) => {
         const data = await response.json();
         return data;
     } catch (error) {
-        return {error: `Failed To Fetch User Profile Data: ${error}`}
+        return {error: `Failed To Questions: ${error}`}
     }
 }
 

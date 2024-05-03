@@ -5,6 +5,7 @@ import HomeScreenStyleSheet from '../StyleSheets/HomeScreenStyleSheet';
 import fetchUserProfileData from '../Helpers/fetchUserProfileData';
 import { useNavigation } from '@react-navigation/native';
 import CustomBadge from '../Helpers/CustomBadge';
+import { ActivityIndicator } from 'react-native-paper';
 
 const HomeScreen = () => {
   const [user, setUser] = useState({});
@@ -113,7 +114,7 @@ const HomeScreen = () => {
     <Animated.View style={HomeScreenStyleSheet.container}>
       <UserProfileContainer/>
       {warnings.length > 0? <UserWarningsComponent/> : null}
-      <UserProfileData />
+      {userData.length > 0 ? <UserProfileData /> : <ActivityIndicator size={30} color='#FFFFFF'/>}
     </Animated.View>
   )
 }

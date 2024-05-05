@@ -22,7 +22,7 @@ const MyTabs = () => {
               return <AntDesign name={iconName} size={size} color={color} />
             } else if (route.name === 'NewQuestion') {
               iconName = focused ? 'pencil-circle' : 'pencil-circle-outline';
-              return <MaterialCommunityIcons name={iconName} size={30} color={color} />
+              return <MaterialCommunityIcons name={iconName} size={size} color={color} />
             }
           },
           tabBarActiveTintColor: '#FFFFFF',
@@ -31,38 +31,31 @@ const MyTabs = () => {
           tabBarStyle: {
             height: 50,
             paddingHorizontal: 2,
-            paddingTop: 0,
             backgroundColor: '#000000',
             borderTopColor: '#FFFFFF',
             borderTopWidth: 0.2,
         },
+          tabBarHideOnKeyboard: true
         })}
     >
       <Tab.Screen 
          name="Home" 
          component={HomeScreen} 
          options={{
-          headerShown: false,   
+          headerShown: false,  
          }}/>
       <Tab.Screen 
          name="Questions" 
          component={Questions} 
          options={{
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerTintColor: '#FFFFFF'
+          headerShown: false,  
          }}/>
 
       <Tab.Screen 
           name="NewQuestion" 
           component={NewQuestion} 
           options={{
-            headerTitle: 'New Question',
-            headerStyle: {
-              backgroundColor: '#000000',
-            },
-            headerTintColor: '#FFFFFF'
+            headerShown: false,
           }}/>  
     </Tab.Navigator>
   )

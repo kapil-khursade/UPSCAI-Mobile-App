@@ -48,9 +48,10 @@ export default StyleSheet.create({
         color: '#FFFFFF'
     },
     versionContainer: {
-        marginTop: "45%",
-        width: '90%',
-        marginHorizontal: '5%'
+        position: 'absolute',
+        top:'92%',
+        left: '5%',
+        width: '90%'
     },
     eyeIcon: {
         position: "relative",
@@ -64,9 +65,10 @@ export default StyleSheet.create({
         alignItems: 'center'
     }, 
     versionText: {
-        color: '#FFFFFF',
+        color: 'lightgrey',
         textAlign: 'center',
-        width: '100%'
+        width: '100%',
+        fontSize: 10
     },
     newAccountButton: {
         width: "100%",

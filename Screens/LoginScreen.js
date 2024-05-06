@@ -2,7 +2,7 @@ import { View, Text, Image, ActivityIndicator, TouchableOpacity} from 'react-nat
 import React, {useState} from 'react'
 import LoginScreenStyleSheet from '../StyleSheets/LoginScreenStyleSheet'
 import { StatusBar } from 'expo-status-bar';
-import { Ionicons } from "@expo/vector-icons";
+import appJson from '../app.json'; 
 import Login from '../Helpers/login';
 import { CommonActions } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -140,7 +140,7 @@ const handleLogin = async() => {
         >
             <Text style={LoginScreenStyleSheet.newAccountButtonText}>Create New Account</Text>
         </TouchableOpacity>
-        <Text style={LoginScreenStyleSheet.versionText}>{process.env.EXPO_PUBLIC_APP_VERSION}</Text>
+        <Text style={LoginScreenStyleSheet.versionText}>v {appJson.expo.version}</Text>
       </View>
       )
   }

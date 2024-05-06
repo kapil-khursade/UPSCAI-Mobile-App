@@ -23,26 +23,10 @@ export default StyleSheet.create({
         width: "90%",
     },
     input: {
-        height: 55,
-        width: "100%",
-        borderColor: "rgb(174, 179, 181)",
-        color: '#FFFFFF',
-        borderWidth: 1,
-        borderRadius: 3,
-        marginTop: 10,
-        padding: 8,
-        borderRadius: 10,
+        marginTop: 20,
         backgroundColor: '#1e2a33',
-      }, 
-    placeholderText: {
-        fontSize: 10,
-        color: '#FFFFFF',
-        position: 'relative',
-        top: 30,
-        left: 8,
-        zIndex: 1,
-        marginBottom: 4
-      } ,  
+        borderRadius: 30
+      },  
     loginButtonContainer: {
         marginHorizontal: "5%",
         height: 50,

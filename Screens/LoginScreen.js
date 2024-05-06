@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, ActivityIndicator, TouchableOpacity} from 'react-native'
+import { View, Text, Image, ActivityIndicator, TouchableOpacity} from 'react-native'
 import React, {useState} from 'react'
 import LoginScreenStyleSheet from '../StyleSheets/LoginScreenStyleSheet'
 import { StatusBar } from 'expo-status-bar';
@@ -6,9 +6,10 @@ import { Ionicons } from "@expo/vector-icons";
 import Login from '../Helpers/login';
 import { CommonActions } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setIsLogin } from '../Helpers/Redux/isLoginSlice';
 import redirectToUrl from '../Helpers/redirectToUrl';
+import { TextInput } from 'react-native-paper';
 
 const LoginScreen = ({ navigation, route }) => {
 const [username, setUsername] = useState('');
@@ -78,33 +79,35 @@ const handleLogin = async() => {
     }
     return(
         <View style={LoginScreenStyleSheet.inputContainer}>
-            {username == '' ? <Text></Text> : <Text style={LoginScreenStyleSheet.placeholderText}>Username</Text>}
             <TextInput
                 style={LoginScreenStyleSheet.input}
-                placeholder={"Username"}
-                placeholderTextColor="gray"
+                mode="outlined"
+                label="Username"
+                placeholder="Username"
+                textColor='#FFFFFF'
+                activeOutlineColor='#FFFFFF'
                 value={username}
                 onChangeText={(value) => handleSetUsername(value)}
             />
-            {password == '' ? <Text></Text> : <Text style={LoginScreenStyleSheet.placeholderText}>Password</Text>}
             <TextInput
                 style={LoginScreenStyleSheet.input}
-                placeholder={"Password"}
-                placeholderTextColor="gray"
+                mode="outlined"
+                label="Password"
+                placeholder="Password"
+                textColor='#FFFFFF'
+                activeOutlineColor='#FFFFFF'
                 secureTextEntry={hidePassword}
                 value={password}
                 onChangeText={(value) => handleSetPassword(value)}
-            />
-            <TouchableOpacity
+                right={
+                <TextInput.Icon 
+                icon={hidePassword ? "eye" : "eye-off"} 
                 onPress={togglePasswordVisibility}
-                style={LoginScreenStyleSheet.eyeIcon}
-                >
-                <Ionicons
-                    name={hidePassword ? "eye" : "eye-off"}
-                    size={20}
-                    color="grey"
+                color={'lightgrey'}
                 />
-            </TouchableOpacity>
+              }
+
+            />
         </View>
     )
   }
